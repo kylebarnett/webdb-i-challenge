@@ -57,4 +57,20 @@ server.put('/:id', (req, res) => {
     })
 })
 
+server.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  db('accounts').where({ id }).del()
+    .then(account => {
+      console.log(account)
+      if (account) {
+        res.status(204).json({ message: 'Account deleted.' })
+      } else {
+        res.status(404).json({ message: 'ID does not exist.' })
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Error deleting account.' })
+    })
+})
+
 module.exports = server;

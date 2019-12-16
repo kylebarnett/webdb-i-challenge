@@ -9,7 +9,6 @@ server.use(express.json());
 server.get('/', (req, res) => {
   db('accounts')
     .then(account => {
-      console.log(account)
       res.status(200).json(account)
     })
     .catch(err => {
@@ -61,7 +60,6 @@ server.delete('/:id', (req, res) => {
   const { id } = req.params;
   db('accounts').where({ id }).del()
     .then(account => {
-      console.log(account)
       if (account) {
         res.status(204).json({ message: 'Account deleted.' })
       } else {
